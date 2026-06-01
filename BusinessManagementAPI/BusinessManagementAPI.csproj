@@ -11,9 +11,4 @@
     <PackageReference Include="MongoDB.Driver" Version="3.9.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Supervisor\" />
-  </ItemGroup>
-
 </Project>

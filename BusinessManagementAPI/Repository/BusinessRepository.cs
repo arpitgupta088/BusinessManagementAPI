@@ -39,10 +39,17 @@ namespace BusinessManagementAPI.Repository
 
         public async Task UpdateAsync(string businessId, Business business)
         {
-            await _businessCollection.ReplaceOneAsync(
-                x => x.BusinessId == businessId, business);
-        }
+            var update = Builders<Business>.Update
+                .Set(x => x.BusinessName, business.BusinessName)
+                .Set(x => x.CreatorId, business.CreatorId)
+                .Set(x => x.CreatorName, business.CreatorName)
+                .Set(x => x.UpdatedDate, business.UpdatedDate)
+                .Set(x => x.IsDeleted, business.IsDeleted);
 
+            await _businessCollection.UpdateOneAsync(
+                x => x.BusinessId == businessId,
+                update);
+        }
         public async Task DeleteAsync(string businessId)
         {
             await _businessCollection.DeleteOneAsync(

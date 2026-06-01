@@ -1,8 +1,20 @@
+using BusinessManagementAPI.Repository;
+using BusinessManagementAPI.Supervisor;
+using BusinessManagementAPI.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
+
+builder.Services.AddSingleton<IBusinessRepository, BusinessRepository>();
+
+builder.Services.AddScoped<IBusinessSupervisor, BusinessSupervisor>();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -14,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
